@@ -12,9 +12,9 @@ export async function generateStaticParams() {
   }))
 }
 
-// Changed: In Next.js 15, params is NOT a Promise - it's a direct object
-export default async function PostPage({ params }: { params: { slug: string } }) {
-  const { slug } = params
+// Changed: In Next.js 15, params IS a Promise and must be awaited
+export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
   const post = await getPost(slug) as Post | null
 
   if (!post) {

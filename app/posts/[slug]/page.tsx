@@ -3,7 +3,6 @@ import { getPost, getPosts } from '@/lib/cosmic'
 import { Post } from '@/types'
 import ReactMarkdown from 'react-markdown'
 import Link from 'next/link'
-import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
 export async function generateStaticParams() {
@@ -13,8 +12,9 @@ export async function generateStaticParams() {
   }))
 }
 
-export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
+// Changed: In Next.js 15, params is NOT a Promise - it's a direct object
+export default async function PostPage({ params }: { params: { slug: string } }) {
+  const { slug } = params
   const post = await getPost(slug) as Post | null
 
   if (!post) {

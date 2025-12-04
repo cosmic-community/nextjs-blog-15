@@ -12,7 +12,11 @@ export async function generateStaticParams() {
   }))
 }
 
-export default async function AuthorPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function AuthorPage({ 
+  params 
+}: { 
+  params: Promise<{ slug: string }> 
+}) {
   const { slug } = await params
   const author = await getAuthor(slug) as Author | null
 
